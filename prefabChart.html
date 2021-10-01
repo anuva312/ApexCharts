@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Bar Chart</title>
+  </head>
+  <body>
+    <div id="chart"></div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script>
+    function selectProps(...props) {
+      return function (obj) {
+        const newObj = {};
+        props.forEach((name) => {
+          newObj[name] = obj[name];
+        });
+
+        return newObj;
+      };
+    }
+    var yAxisData = [
+      {
+        name: "KSEB",
+        data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10],
+        property3: "some value",
+      },
+      {
+        name: "Solar",
+        data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35],
+        property3: "some value",
+      },
+      {
+        name: "DG-Set",
+        data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47],
+        property3: "some value",
+      },
+      {
+        name: "Total",
+        data: [55, 97, 79, 59, 35, 78, 52, 87, 32, 66, 85, 57],
+        property3: "some value",
+      },
+    ];
+
+    var legendPosition = "bottom"; //Available options : [top, right, bottom, left]
+
+    var xAxisData = [
+      "01 Jan 2001",
+      "02 Jan 2002",
+      "03 Jan 2003",
+      "04 Jan 2004",
+      "05 Jan 2005",
+      "06 Jan 2006",
+      "07 Jan 2007",
+      "08 Jan 2008",
+      "09 Jan 2009",
+      "10 Jan 2010",
+      "11 Jan 2011",
+      "12 Jan 2012",
+    ];
+
+    var color1 = "#5189e9";
+    var color2 = "#53f1c9";
+    var color3 = "#fbc524";
+    var color4 = "#ba68c8";
+    // var colors = ["#5189e9", "#53f1c9", "#fbc524", "#ba68c8"];
+
+    var chartType = "line";
+    var yAxisLabel = "Energy in kwh";
+
+    var options = {
+      series: yAxisData.map(selectProps("name", "data")),
+      colors: [color1, color2, color3, color4],
+      chart: {
+        type: chartType,
+        height: 350,
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      labels: xAxisData,
+      xaxis: {
+        type: "datetime",
+      },
+      legend: {
+        position: legendPosition,
+      },
+      yaxis: [
+        {
+          title: {
+            text: yAxisLabel,
+          },
+        },
+      ],
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+  </script>
+</html>
